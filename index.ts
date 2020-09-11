@@ -1,51 +1,92 @@
-// compiling and variables 
-// const a: number = 4.312; //explicitly stating the type
+//compiling and variables 
+const a = 3.2;
 
-
-interface Myobject {
+interface MyObj {
     x: number;
-    y: number;
+    y: number; 
     z?: number;
- }
+}
 
-
-let obj: Myobject = {
-    x: 32,
-    y: 5
+//specifying the type of properties
+const obj: MyObj = {
+    x: 3,
+    y: 5,
 };
 
-obj.z = 123; //this wont work but if we want to keep this porperty optional --> we need to add this "z?: number" to the interface 
-console.log(obj.z);
-obj.z = 44;
-console.log(obj.z);
-
-obj.y = 33;
-console.log(obj.y);
-
-
-//Funtions 
-
-type addFunction = (x: number, y: number) => number; // it is a separte type and is ideal for re-using things
-
-
-// // const add: (x: number, y: number) => number = (x: number, y: number) => x + y; // but there is no need for specifying the return type as it does it by itself
-const add: addFunction = (x: number, y: number) => x + y; // but there is no need for specifying the return type as it does it by itself
-
-console.log(add(3, 5));
-
-
-// unions 
-let myBeNum: number | string | Myobject |  addFunction  = 5;
-console.log(typeof myBeNum)
-// myBeNum = (x: number, y: number) => x+y;
-
-type Num = Myobject;
+obj.z = 7;
 
 
 
-//Casting 
 
-add(myBeNum, myBeNum);
+interface User { 
+ name: string;
+ id: number;
+}
 
- 
+//#1
+class UserAccount { 
+    name: string;
+    id: number;
 
+    constructor(name: string, id: number){
+        this.name = name;
+        this.id = id;
+    }
+
+    //Declaring a function inside a class does not require the word "function"
+    //check line 48
+     getName(): string {
+        return this.name;
+    }
+}
+
+const user: User = new UserAccount("Khaled", 2);
+
+//The type of the expected value is specified 
+function getUser(): User {
+    return user;
+}
+
+
+//-------------------------Type Composition-------------------------
+
+//Using Union: means a type could be one of many types
+type MyBool = true | false;
+type WindowStates = "open" | "closed" | "minimized";
+
+function getLength(obj: string | string[]){
+    return obj.length;
+}
+
+function wrapInArray(obj: string | string[]){
+    if (typeof obj === "string") {
+        return [obj];
+    } else {
+        return obj;
+    }
+}
+
+const returnedValue = wrapInArray(["khaled"]);
+console.log(returnedValue);
+
+//Using Generics 
+
+
+//Duck typing 
+
+interface Point { 
+    x: number;
+    y: number;
+    name: string;
+};
+
+function printPoint(p: Point){
+    console.log(`${p.x}, ${p.y}, ${p.name}`);
+}
+
+const point = {name: "triangle", y: 30, x: 70};
+printPoint(point);
+
+//functions 
+//casting
+//any

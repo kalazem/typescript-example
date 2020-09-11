@@ -1,20 +1,48 @@
-// compiling and variables 
-// const a: number = 4.312; //explicitly stating the type
+//compiling and variables 
+var a = 3.2;
+//specifying the type of properties
 var obj = {
-    x: 32,
+    x: 3,
     y: 5
 };
-obj.z = 123; //this wont work but if we want to keep this porperty optional --> we need to add this "z?: number" to the interface 
-console.log(obj.z);
-obj.z = 44;
-console.log(obj.z);
-obj.y = 33;
-console.log(obj.y);
-// // const add: (x: number, y: number) => number = (x: number, y: number) => x + y; // but there is no need for specifying the return type as it does it by itself
-var add = function (x, y) { return x + y; }; // but there is no need for specifying the return type as it does it by itself
-console.log(add(3, 5));
-// unions 
-var myBeNum = 5;
-console.log(typeof myBeNum);
-myBeNum = function (x, y) { return x + y; };
-console.log(typeof Num);
+obj.z = 7;
+//#1
+var UserAccount = /** @class */ (function () {
+    function UserAccount(name, id) {
+        this.name = name;
+        this.id = id;
+    }
+    //Declaring a function inside a class does not require the word "function"
+    //check line 48
+    UserAccount.prototype.getName = function () {
+        return this.name;
+    };
+    return UserAccount;
+}());
+var user = new UserAccount("Khaled", 2);
+//The type of the expected value is specified 
+function getUser() {
+    return user;
+}
+function getLength(obj) {
+    return obj.length;
+}
+function wrapInArray(obj) {
+    if (typeof obj === "string") {
+        return [obj];
+    }
+    else {
+        return obj;
+    }
+}
+var returnedValue = wrapInArray(["khaled"]);
+console.log(returnedValue);
+;
+function printPoint(p) {
+    console.log(p.x + ", " + p.y + ", " + p.name);
+}
+var point = { name: "triangle", y: 30, x: 70 };
+printPoint(point);
+//functions 
+//casting
+//any
